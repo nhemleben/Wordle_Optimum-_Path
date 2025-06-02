@@ -38,15 +38,29 @@ def matching_character_indexes(answer, guess):
             matching_indexes.append(index)
     return matching_indexes
 
+#These letters and their locations match
+def matching_characters(answer, guess):
+    if len(guess) != len(answer):
+        raise Exception("answers and guesses must be same length")
+
+    matching_characters = []
+    for index in range(len(answer)):
+        if answer[index] == guess[index]:
+            matching_characters.append(answer[index])
+    return matching_characters
+
 #Now to check characters that are in the guess and the answer but locations do not match
 def non_matching_contained_in_answer_indexes(answer, guess):
     if len(guess) != len(answer):
         raise Exception("answers and guesses must be same length")
     matching_indexes = matching_character_indexes(answer, guess)
+    matching_chars = matching_characters(answer, guess)
 
+    answer_as_list = list(answer)
     contained_in_answer_indexes = []
     for index in range(len(answer)):
-        if guess[index] in answer and index not in matching_indexes:
+        #Check if guess is in the answer, and that it is not a matching index (or was a matching index earlier)
+        if guess[index] in answer_as_list and index not in matching_indexes and guess[index] not in matching_chars:
             contained_in_answer_indexes.append(index)
     return contained_in_answer_indexes 
 
