@@ -32,23 +32,21 @@ def Main_Game():
 
     while number_of_guesses <= max_number_guesses:
 
-        currect_indexes = Wordle_Engine.matching_character_indexes(answer, guess)
-        non_matching_contained = Wordle_Engine.non_matching_contained_in_answer_indexes(answer, guess)
+        currect_indexes, non_matching_contained = Wordle_Engine.generic_wordle_round(answer, guess)
 
         print("The matching letter and their spot are:")
         print([guess[index] for index in currect_indexes] )
         print(currect_indexes)
-        #print("The non matching indexes but contained letters are:")
+
         print("Matching letters but wrong spot:") #readabilty
         print([guess[index] for index in non_matching_contained] )
+
         if len(currect_indexes) == 5:
             print("Great job you win")
             break
 
         print("Currently on guess number: " + str(number_of_guesses))
-
         guess = get_valid_guess()
-
         number_of_guesses += 1
     
 

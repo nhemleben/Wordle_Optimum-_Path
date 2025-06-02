@@ -1,8 +1,5 @@
-import random
 #Wordle engine 
-
-answer_word = ""
-guess = ""
+import random
 
 allowed_answers = []
 allowed_guesses = []
@@ -21,10 +18,6 @@ with open('wordle-allowed-guesses.txt', 'r') as file:
 number_of_possible_answers = len(allowed_answers)
 number_of_possible_guesses = len(allowed_guesses)
 
-#print(allowed_guesses[-3:])
-#print(number_of_possible_answers)
-#print(number_of_possible_guesses)
-
 
 def generate_random_answer():
     rand_index = random.randint(0,number_of_possible_answers)
@@ -38,8 +31,6 @@ def generate_random_guess():
 #Guesses can either be in the guess list or the answer list, as otherwise no guess would ever be correct
 def guess_is_allowable(guess):
     return len(guess) == 5 and (guess in allowed_guesses or guess in allowed_answers)
-
-
 
 #These letters and their locations match
 def matching_character_indexes(answer, guess):
