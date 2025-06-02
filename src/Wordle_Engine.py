@@ -1,4 +1,4 @@
-
+import random
 #Wordle engine 
 
 answer_word = ""
@@ -25,6 +25,14 @@ number_of_possible_guesses = len(allowed_guesses)
 #print(number_of_possible_answers)
 #print(number_of_possible_guesses)
 
+
+def generate_random_answer():
+    rand_index = random.randint(0,number_of_possible_answers)
+    return allowed_answers[rand_index]
+
+def generate_random_guess():
+    rand_index = random.randint(0,number_of_possible_guesses)
+    return allowed_guesses[rand_index]
 
 
 #These letters and their locations match
@@ -65,7 +73,10 @@ def non_matching_contained_in_answer_indexes(answer, guess):
     return contained_in_answer_indexes 
 
 
-
+def generic_wordle_round(answer, guess):
+    matches = matching_character_indexes(answer, guess)
+    non_matches = non_matching_contained_in_answer_indexes(answer, guess)
+    return matches, non_matches
 
 
 
