@@ -35,6 +35,12 @@ def generate_random_guess():
     return allowed_guesses[rand_index]
 
 
+#Guesses can either be in the guess list or the answer list, as otherwise no guess would ever be correct
+def guess_is_allowable(guess):
+    return len(guess) == 5 and (guess in allowed_guesses or guess in allowed_answers)
+
+
+
 #These letters and their locations match
 def matching_character_indexes(answer, guess):
     if len(guess) != len(answer):
