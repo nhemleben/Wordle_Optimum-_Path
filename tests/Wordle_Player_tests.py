@@ -49,5 +49,57 @@ class Test_Player_Methods(unittest.TestCase):
         self.assertTrue(141 == len(valid_guesses))
         self.assertTrue(valid_guesses[0] == 'aback')
 
+
+    def test_greedy_naive_guesser_aaaab(self):
+        Cur_Valid_Answers = ['aaaaa', 'aaaab', 'aaaab']
+        Cur_Valid_Guesses = ['aaaaa', 'aaaab', 'aaaab']
+
+        naive = World_Player.greedy_naive_guesser(Cur_Valid_Answers, Cur_Valid_Guesses )
+
+        self.assertTrue(naive == 'aaaab')
+
+    def test_greedy_naive_guesser_baaaa_1(self):
+        Cur_Valid_Answers = ['aaaaa', 'baaaa', 'baaaa']
+        Cur_Valid_Guesses = ['aaaaa', 'baaaa', 'baaaa']
+
+        naive = World_Player.greedy_naive_guesser(Cur_Valid_Answers, Cur_Valid_Guesses )
+
+        self.assertTrue(naive == 'baaaa')
+
+    def test_greedy_naive_guesser_baaaa_2(self):
+        Cur_Valid_Answers = ['aaaaa', 'baaaa', 'bbaaa']
+        Cur_Valid_Guesses = ['aaaaa', 'baaaa', 'bbaaa']
+
+        naive = World_Player.greedy_naive_guesser(Cur_Valid_Answers, Cur_Valid_Guesses )
+
+        self.assertTrue(naive == 'baaaa')
+
+    def test_greedy_naive_guesser_answers_and_guesses_differ(self):
+        Cur_Valid_Answers = ['aaaaa', 'baaac', 'bbaac']
+        Cur_Valid_Guesses = ['aaaaa', 'baaac', 'bbaac', 'baaaa', 'bbaaa']
+
+        naive = World_Player.greedy_naive_guesser(Cur_Valid_Answers, Cur_Valid_Guesses )
+
+        self.assertTrue(naive == 'baaac')
+
+    def test_greedy_naive_guesser_optimal_not_guessable(self):
+        Cur_Valid_Answers = ['abaac', 'baaac', 'bbaaa']
+        Cur_Valid_Guesses = ['abaac', 'baaac', 'bbaaa']
+
+        naive = World_Player.greedy_naive_guesser(Cur_Valid_Answers, Cur_Valid_Guesses )
+
+        #first guess should be bbaac then it should find
+        self.assertTrue(naive == 'abaac')
+
+
+    def test_greedy_naive_guesser_optimal_not_guessable(self):
+        Cur_Valid_Answers = ['bbaac', 'baaac', 'bbaaa']
+        Cur_Valid_Guesses = ['bbaac', 'baaac', 'bbaaa']
+
+        naive = World_Player.greedy_naive_guesser(Cur_Valid_Answers, Cur_Valid_Guesses )
+
+        #first guess should be bbaac then it should find
+        self.assertTrue(naive == 'abaac')
+
 if __name__ == '__main__':
     unittest.main()
