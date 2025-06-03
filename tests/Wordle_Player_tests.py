@@ -4,7 +4,7 @@ sys.path.append('../src')
 import src.Wordle_Engine as World_Engine
 import src.Wordle_Player as World_Player
 
-class Test_Engine_Methods(unittest.TestCase):
+class Test_Player_Methods(unittest.TestCase):
 
 
 
@@ -14,10 +14,10 @@ class Test_Engine_Methods(unittest.TestCase):
         matching_indexes = [0,1,2,3]
         non_matching_contained = []
 
-        all_indexes = World_Player.all_valid_guesses(Cur_Valid_Guesses, matching_characters, matching_indexes, non_matching_contained):
+        valid_guesses = World_Player.all_valid_guesses(Cur_Valid_Guesses, matching_characters, matching_indexes, non_matching_contained)
 
 
-        self.assertTrue(5 == len(all_indexes))
+        self.assertTrue(1 == len(valid_guesses))
 
 
 
