@@ -10,9 +10,7 @@ All_Possible_Answers = Wordle_Engine.allowed_answers
 All_Possible_Guesses = Wordle_Engine.allowed_guesses + Wordle_Engine.allowed_answers
 
 #Return all valid guess given the hints 
-def all_valid_guesses(Cur_Valid_Guesses, guess, matching_characters, matching_indexes, non_matching_contained, non_matched_letters):
-
-    not_matched = [guess[index] for index in not_matched_indexes]
+def all_valid_guesses(Cur_Valid_Guesses, matching_characters, matching_indexes, non_matching_contained, non_matched_letters):
     removed_non_matching_letters = removed_letters_no_match(Cur_Valid_Guesses, non_matched_letters)
     matching_char_guesses = all_valid_guesses_matching_characters(removed_non_matching_letters, matching_characters, matching_indexes)
     non_matching_char_guesses = all_valid_guesses_non_matching_characters(matching_char_guesses, non_matching_contained)

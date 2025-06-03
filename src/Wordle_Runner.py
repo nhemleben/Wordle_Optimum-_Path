@@ -59,7 +59,7 @@ def Main_Game():
 def Agent_Main_Game():
     answer = Wordle_Engine.generate_random_answer()
     #answer = "antic"
-    answer = "joker"
+    #answer = "joker"
 
     if cheater_mode:
         print(answer)
