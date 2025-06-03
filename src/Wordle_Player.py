@@ -1,7 +1,8 @@
 import string
 import sys
-sys.path.append('../src')
-import src.Wordle_Engine as Wordle_Engine
+#sys.path.append('../src')
+#import src.Wordle_Engine as Wordle_Engine
+import Wordle_Engine as Wordle_Engine
 
 alphabet_list = list(string.ascii_lowercase)
 All_Possible_Answers = Wordle_Engine.allowed_answers
@@ -80,12 +81,12 @@ def greedy_naive_guesser(Curr_valid_answers, Curr_valid_guesses):
 
 
     #Get most likely letter for each spot in word
-    naive_word_chars = []
+    master_naive_word_chars = []
     for index in range(word_length):
         char_index = master_index_to_char_probabilty[index].index( max( master_index_to_char_probabilty[index]))
-        naive_word_chars.append( alphabet_list[char_index] )
+        master_naive_word_chars.append( alphabet_list[char_index] )
 
-    naive_word = ''.join(naive_word_chars)
+    naive_word = ''.join(master_naive_word_chars)
 
     #need to make deep copy to make modification to this list not mess stuff up
     minor_index_to_char_prob = master_index_to_char_probabilty.copy()
@@ -99,13 +100,20 @@ def greedy_naive_guesser(Curr_valid_answers, Curr_valid_guesses):
         minor_index_to_char_prob[index_to_modify][ alphabet_list.index(naive_word[index_to_modify])] = 0
 
         while sum(minor_index_to_char_prob[ index_to_modify]) == 0 :
+            #reset letters probability 
             minor_index_to_char_prob[index_to_modify]= master_index_to_char_probabilty[index_to_modify].copy()
+            #reset letter in guess to to initial (maximal probability guess) aswell
+            naive_word_list = list(naive_word)
+            naive_word_list[index_to_modify] = master_naive_word_chars[index_to_modify]
+            naive_word = ''.join(naive_word_list)
+
             index_to_modify +=1
             #current letter is still broken as I haven't changed anything yet
             minor_index_to_char_prob[index_to_modify][ alphabet_list.index(naive_word[index_to_modify])] = 0
 
         char_index = minor_index_to_char_prob[index_to_modify].index( max( minor_index_to_char_prob[index_to_modify]))
         naive_word_list = list(naive_word)
+        #print(naive_word_list)
         naive_word_list[index_to_modify] = alphabet_list[char_index]
         naive_word = ''.join(naive_word_list)
 
