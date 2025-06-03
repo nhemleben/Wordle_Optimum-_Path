@@ -112,7 +112,7 @@ def greedy_naive_guesser(Curr_valid_answers, Curr_valid_guesses):
 
     index_to_modify = 0 
     #If word not a valid guess then go letter by letter till good
-    while ''.join(naive_word) not in Curr_valid_guesses:
+    while (''.join(naive_word)) not in Curr_valid_guesses:
     
         #set the probability of current character to 0 and refind max, if need to go up an index
         #reset using master index list 
@@ -126,7 +126,7 @@ def greedy_naive_guesser(Curr_valid_answers, Curr_valid_guesses):
             naive_word[index_to_modify] = master_naive_word_chars[index_to_modify]
 
             index_to_modify +=1
-            #print(naive_word, index_to_modify)
+
             #current letter is still broken as I haven't changed anything yet
             minor_index_to_char_prob[index_to_modify][ alphabet_list.index(naive_word[index_to_modify])] = 0
 
@@ -138,7 +138,7 @@ def greedy_naive_guesser(Curr_valid_answers, Curr_valid_guesses):
 
         #If messing with later letter skip back 
         if index_to_modify > 0:
-            index_to_modify -= 1
+            index_to_modify =0
 
     return ''.join(naive_word)
 

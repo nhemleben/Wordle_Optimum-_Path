@@ -139,7 +139,7 @@ def Agent_Main_Game():
             Cur_Valid_Guesses.remove(guess)
 
             if len(currect_indexes) == 5:
-                print('win')
+                #print('win')
                 break
 
             matching_characters = [guess[index] for index in currect_indexes] 
@@ -157,5 +157,5 @@ def Agent_Main_Game():
 
 if __name__ == '__main__':
     #Main_Game()
-    #Agent_Main_Game()
-    Observed_Agent_Main_Game()
+    Agent_Main_Game()
+    #Observed_Agent_Main_Game()
