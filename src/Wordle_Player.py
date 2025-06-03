@@ -1,4 +1,5 @@
 import string
+import copy
 import sys
 #sys.path.append('../src')
 #import src.Wordle_Engine as Wordle_Engine
@@ -107,7 +108,7 @@ def greedy_naive_guesser(Curr_valid_answers, Curr_valid_guesses):
     naive_word = ''.join(master_naive_word_chars)
 
     #need to make deep copy to make modification to this list not mess stuff up
-    minor_index_to_char_prob = master_index_to_char_probabilty.copy()
+    minor_index_to_char_prob = copy.deepcopy(master_index_to_char_probabilty)
 
     index_to_modify = 0 
     #If word not a valid guess then go letter by letter till good
@@ -119,25 +120,28 @@ def greedy_naive_guesser(Curr_valid_answers, Curr_valid_guesses):
 
         while sum(minor_index_to_char_prob[ index_to_modify]) == 0 :
             #reset letters probability 
-            minor_index_to_char_prob[index_to_modify]= master_index_to_char_probabilty[index_to_modify].copy()
+            minor_index_to_char_prob[index_to_modify]= copy.deepcopy(master_index_to_char_probabilty[index_to_modify])
             #reset letter in guess to to initial (maximal probability guess) aswell
             naive_word_list = list(naive_word)
             naive_word_list[index_to_modify] = master_naive_word_chars[index_to_modify]
             naive_word = ''.join(naive_word_list)
 
             index_to_modify +=1
-            print(naive_word, index_to_modify)
+            #print(naive_word, index_to_modify)
             #current letter is still broken as I haven't changed anything yet
             minor_index_to_char_prob[index_to_modify][ alphabet_list.index(naive_word[index_to_modify])] = 0
 
+        #Get new max probability character
         char_index = minor_index_to_char_prob[index_to_modify].index( max( minor_index_to_char_prob[index_to_modify]))
+
+        #Add to word
         naive_word_list = list(naive_word)
-        #print(naive_word_list)
         naive_word_list[index_to_modify] = alphabet_list[char_index]
         naive_word = ''.join(naive_word_list)
 
+        #If messing with later letter skip back 
         if index_to_modify > 0:
-            index_to_modify = 0
+            index_to_modify -= 1
 
     return naive_word
 
