@@ -71,8 +71,6 @@ class Test_Player_Methods(unittest.TestCase):
         self.assertTrue((1/3) == probs[0])
         self.assertTrue((2/3) == probs[1])
 
-
-
     def test_greedy_naive_guesser_aaaab(self):
         Cur_Valid_Answers = ['aaaaa', 'aaaab', 'aaaab']
         Cur_Valid_Guesses = ['aaaaa', 'aaaab', 'aaaab']
