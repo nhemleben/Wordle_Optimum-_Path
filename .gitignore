@@ -1,4 +1,2 @@
-src/__pycache__/Wordle_Engine.cpython-312.pyc
-src/__pycache__/Wordle_Player.cpython-312.pyc
-tests/__pycache__/Wordle_Engine_tests.cpython-312.pyc
-tests/__pycache__/Wordle_Player_tests.cpython-312.pyc
+*.swp
+*.pyc

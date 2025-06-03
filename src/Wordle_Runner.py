@@ -1,4 +1,6 @@
-import Wordle_Engine
+import sys
+sys.path.append('../src')
+import src.Wordle_Engine as Wordle_Engine
 
 length_of_answer = 5
 

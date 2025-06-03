@@ -1,6 +1,8 @@
-import Wordle_Engine
+import sys
+sys.path.append('../src')
+import src.Wordle_Engine as Wordle_Engine
 
-
+All_Possible_Answers = Wordle_Engine.allowed_answers
 All_Possible_Guesses = Wordle_Engine.allowed_guesses + Wordle_Engine.allowed_answers
 
 #Return all valid guess given the hints 
