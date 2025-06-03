@@ -1,4 +1,5 @@
 import sys
+import copy
 sys.path.append('../src')
 #import src.Wordle_Engine as Wordle_Engine
 #import src.Wordle_Player as Wordle_Player
@@ -61,6 +62,8 @@ def Observed_Agent_Main_Game():
     answer = Wordle_Engine.generate_random_answer()
     #answer = "antic"
     #answer = "joker"
+    answer = "delta"
+    answer = "yield"
 
     if cheater_mode:
         print(answer)
@@ -117,10 +120,11 @@ def Agent_Main_Game():
             print(x)
 
         answer = Wordle_Engine.generate_random_answer()
+        print(answer)
         Answer_log.append(answer)
 
-        Cur_Valid_Answers = Wordle_Player.All_Possible_Answers
-        Cur_Valid_Guesses = Wordle_Player.All_Possible_Guesses
+        Cur_Valid_Answers = [word for word in Wordle_Player.All_Possible_Answers]
+        Cur_Valid_Guesses = [word for word in Wordle_Player.All_Possible_Guesses]
         guess = Wordle_Player.greedy_naive_guesser(Cur_Valid_Answers, Cur_Valid_Guesses)
 
         number_of_guesses = 1
@@ -135,6 +139,7 @@ def Agent_Main_Game():
             Cur_Valid_Guesses.remove(guess)
 
             if len(currect_indexes) == 5:
+                print('win')
                 break
 
             matching_characters = [guess[index] for index in currect_indexes] 
@@ -152,4 +157,5 @@ def Agent_Main_Game():
 
 if __name__ == '__main__':
     #Main_Game()
-    Agent_Main_Game()
+    #Agent_Main_Game()
+    Observed_Agent_Main_Game()

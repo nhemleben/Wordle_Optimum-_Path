@@ -23,11 +23,11 @@ number_of_possible_guesses = len(allowed_guesses)
 
 
 def generate_random_answer():
-    rand_index = random.randint(0,number_of_possible_answers)
+    rand_index = random.randint(0,number_of_possible_answers-1)
     return allowed_answers[rand_index]
 
 def generate_random_guess():
-    rand_index = random.randint(0,number_of_possible_guesses)
+    rand_index = random.randint(0,number_of_possible_guesses-1)
     return allowed_guesses[rand_index]
 
 
