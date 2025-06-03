@@ -1,16 +1,19 @@
 #Wordle engine 
 import random
+import os
 
 allowed_answers = []
 allowed_guesses = []
 
 #load in allowed answers and guesses 
-with open('wordle-answers-alphabetical.txt', 'r') as file:
+PATH = os.path.join(os.path.dirname(__file__), '../data/wordle-answers-alphabetical.txt')
+with open(PATH, 'r') as file:
     lines = file.readlines()
     for line in lines:
         allowed_answers.append(line.strip('\n'))
 
-with open('wordle-allowed-guesses.txt', 'r') as file:
+PATH = os.path.join(os.path.dirname(__file__), '../data/wordle-allowed-guesses.txt')
+with open(PATH,'r') as file:
     lines = file.readlines()
     for line in lines:
         allowed_guesses.append(line.strip('\n'))

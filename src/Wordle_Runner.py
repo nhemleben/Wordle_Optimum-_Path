@@ -73,7 +73,7 @@ def Agent_Main_Game():
 
     while number_of_guesses <= max_number_guesses:
 
-        currect_indexes, non_matching_contained, not_matched = Wordle_Engine.generic_wordle_round(answer, guess)
+        currect_indexes, non_matching_contained, not_matched_indexes = Wordle_Engine.generic_wordle_round(answer, guess)
 
         #remove most recent guess from possible answers and guesses to prevent duplicates
         if guess in Cur_Valid_Answers:
@@ -95,6 +95,7 @@ def Agent_Main_Game():
 
         print("Currently on guess number: " + str(number_of_guesses))
         
+        not_matched = [guess[index] for index in not_matched_indexes]
         Cur_Valid_Answers = Wordle_Player.all_valid_guesses(Cur_Valid_Answers, matching_characters, currect_indexes, non_matching_contained_chars, not_matched)
         Cur_Valid_Guesses = Wordle_Player.all_valid_guesses(Cur_Valid_Guesses, matching_characters, currect_indexes, non_matching_contained_chars, not_matched)
 
