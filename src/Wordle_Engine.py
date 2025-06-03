@@ -72,11 +72,29 @@ def non_matching_contained_in_answer_indexes(answer, guess):
             contained_in_answer_indexes.append(index)
     return contained_in_answer_indexes 
 
+#Now to check characters that are in the guess and the answer but locations do not match
+def non_matched_non_duped(answer, guess):
+    if len(guess) != len(answer):
+        raise Exception("answers and guesses must be same length")
+    matching_indexes = matching_character_indexes(answer, guess)
+    matching_chars = matching_characters(answer, guess)
+
+    answer_as_list = list(answer)
+    non_matching_non_dup_indexes = []
+    for index in range(len(answer)):
+        #Check if guess letter is not in the answer, and that it is not a matching index (and was not a matching index earlier)
+        if guess[index] not in answer_as_list and index not in matching_indexes and guess[index] not in matching_chars:
+            non_matching_non_dup_indexes.append(index)
+    return non_matching_non_dup_indexes
+
 
 def generic_wordle_round(answer, guess):
     matches = matching_character_indexes(answer, guess)
     non_matches_contained = non_matching_contained_in_answer_indexes(answer, guess)
-    no_matched = [x for x in range(5) if x not in matches and x not in non_matches_contained] 
+
+    #remove duplicate letters from the no_matched set
+    no_matched = non_matched_non_duped(answer,guess)
+
     return matches, non_matches_contained, no_matched
 
 

@@ -7,7 +7,7 @@ import Wordle_Player
 
 length_of_answer = 5
 
-max_number_guesses = 10
+max_number_guesses = 100
 cheater_mode = True
 
 def get_valid_guess():
@@ -57,8 +57,9 @@ def Main_Game():
 
     
 def Agent_Main_Game():
-    #answer = Wordle_Engine.generate_random_answer()
-    answer = "antic"
+    answer = Wordle_Engine.generate_random_answer()
+    #answer = "antic"
+    answer = "joker"
 
     if cheater_mode:
         print(answer)
@@ -95,9 +96,8 @@ def Agent_Main_Game():
 
         print("Currently on guess number: " + str(number_of_guesses))
         
-        not_matched = [guess[index] for index in not_matched_indexes]
-        Cur_Valid_Answers = Wordle_Player.all_valid_guesses(Cur_Valid_Answers, matching_characters, currect_indexes, non_matching_contained_chars, not_matched)
-        Cur_Valid_Guesses = Wordle_Player.all_valid_guesses(Cur_Valid_Guesses, matching_characters, currect_indexes, non_matching_contained_chars, not_matched)
+        Cur_Valid_Answers = Wordle_Player.all_valid_guesses(Cur_Valid_Answers, matching_characters, currect_indexes, non_matching_contained_chars, not_matched_indexes)
+        Cur_Valid_Guesses = Wordle_Player.all_valid_guesses(Cur_Valid_Guesses, matching_characters, currect_indexes, non_matching_contained_chars, not_matched_indexes)
 
         guess = Wordle_Player.greedy_naive_guesser(Cur_Valid_Answers, Cur_Valid_Guesses)
         print("guess: ", guess)

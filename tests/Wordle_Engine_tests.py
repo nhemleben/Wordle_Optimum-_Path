@@ -54,7 +54,13 @@ class Test_Engine_Methods(unittest.TestCase):
         self.assertTrue(5 == len(some_indexes))
 
 
+    def test_non_matched_non_duped_1(self):
+        some_indexes = Wordle_Engine.non_matched_non_duped('abcde','eeabc')
+        self.assertTrue(0 == len(some_indexes))
 
+    def test_non_matched_non_duped_2(self):
+        some_indexes = Wordle_Engine.non_matched_non_duped('abcdz','eeabc')
+        self.assertTrue(2 == len(some_indexes))
 
 if __name__ == '__main__':
     unittest.main()
