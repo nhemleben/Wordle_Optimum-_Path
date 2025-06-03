@@ -72,8 +72,9 @@ def non_matching_contained_in_answer_indexes(answer, guess):
 
 def generic_wordle_round(answer, guess):
     matches = matching_character_indexes(answer, guess)
-    non_matches = non_matching_contained_in_answer_indexes(answer, guess)
-    return matches, non_matches
+    non_matches_contained = non_matching_contained_in_answer_indexes(answer, guess)
+    no_matched = [x for x in range(5) if x not in matches and x not in non_matches_contained] 
+    return matches, non_matches_contained, no_matched
 
 
 

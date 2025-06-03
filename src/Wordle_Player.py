@@ -9,10 +9,28 @@ All_Possible_Answers = Wordle_Engine.allowed_answers
 All_Possible_Guesses = Wordle_Engine.allowed_guesses + Wordle_Engine.allowed_answers
 
 #Return all valid guess given the hints 
-def all_valid_guesses(Cur_Valid_Guesses, matching_characters, matching_indexes, non_matching_contained):
-    matching_char_guesses = all_valid_guesses_matching_characters(Cur_Valid_Guesses, matching_characters, matching_indexes)
+def all_valid_guesses(Cur_Valid_Guesses, matching_characters, matching_indexes, non_matching_contained, non_matched_letters):
+    removed_non_matching_letters = removed_letters_no_match(Cur_Valid_Guesses, non_matched_letters)
+    matching_char_guesses = all_valid_guesses_matching_characters(removed_non_matching_letters, matching_characters, matching_indexes)
     non_matching_char_guesses = all_valid_guesses_non_matching_characters(matching_char_guesses, non_matching_contained)
     return non_matching_char_guesses
+
+def removed_letters_no_match(Curr_valid_guesses, non_matched_letters):
+    #non letters that are forbiden then just give back list
+    if len(non_matched_letters) == 0:
+        return Curr_valid_guesses
+
+    Remaining_Guesses = []
+    for possible_guess in Curr_valid_guesses:
+        guess_list = list(possible_guess)
+        do_add = True
+        for char in non_matched_letters:
+            if char in guess_list:
+                do_add = False
+                break
+        if do_add:
+            Remaining_Guesses.append(possible_guess)
+    return Remaining_Guesses
 
 #Return all valid guess given the matching characters
 def all_valid_guesses_matching_characters(Curr_valid_guesses, matching_characters, matching_indexes):
@@ -108,6 +126,7 @@ def greedy_naive_guesser(Curr_valid_answers, Curr_valid_guesses):
             naive_word = ''.join(naive_word_list)
 
             index_to_modify +=1
+            print(naive_word, index_to_modify)
             #current letter is still broken as I haven't changed anything yet
             minor_index_to_char_prob[index_to_modify][ alphabet_list.index(naive_word[index_to_modify])] = 0
 

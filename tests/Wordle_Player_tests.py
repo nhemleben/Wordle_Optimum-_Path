@@ -11,7 +11,7 @@ class Test_Player_Methods(unittest.TestCase):
         matching_indexes = [0,1,2,3]
         non_matching_contained = []
 
-        valid_guesses = World_Player.all_valid_guesses(Cur_Valid_Guesses, matching_characters, matching_indexes, non_matching_contained)
+        valid_guesses = World_Player.all_valid_guesses(Cur_Valid_Guesses, matching_characters, matching_indexes, non_matching_contained,[])
 
         self.assertTrue(1 == len(valid_guesses))
         self.assertTrue(valid_guesses[0] == 'aahed')
@@ -22,7 +22,7 @@ class Test_Player_Methods(unittest.TestCase):
         matching_indexes = [0,1]
         non_matching_contained = []
 
-        valid_guesses = World_Player.all_valid_guesses(Cur_Valid_Guesses, matching_characters, matching_indexes, non_matching_contained)
+        valid_guesses = World_Player.all_valid_guesses(Cur_Valid_Guesses, matching_characters, matching_indexes, non_matching_contained,[])
 
         self.assertTrue(4 == len(valid_guesses))
         self.assertTrue(valid_guesses[0] == 'aahed')
@@ -33,7 +33,7 @@ class Test_Player_Methods(unittest.TestCase):
         matching_indexes = [0]
         non_matching_contained = []
 
-        valid_guesses = World_Player.all_valid_guesses(Cur_Valid_Guesses, matching_characters, matching_indexes, non_matching_contained)
+        valid_guesses = World_Player.all_valid_guesses(Cur_Valid_Guesses, matching_characters, matching_indexes, non_matching_contained,[])
 
         self.assertTrue(596+141 == len(valid_guesses))
         self.assertTrue(valid_guesses[0] == 'aahed')
@@ -44,7 +44,7 @@ class Test_Player_Methods(unittest.TestCase):
         matching_indexes = [0]
         non_matching_contained = []
 
-        valid_guesses = World_Player.all_valid_guesses(Cur_Valid_Guesses, matching_characters, matching_indexes, non_matching_contained)
+        valid_guesses = World_Player.all_valid_guesses(Cur_Valid_Guesses, matching_characters, matching_indexes, non_matching_contained,[])
 
         self.assertTrue(141 == len(valid_guesses))
         self.assertTrue(valid_guesses[0] == 'aback')
