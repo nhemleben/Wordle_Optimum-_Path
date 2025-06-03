@@ -50,6 +50,29 @@ class Test_Player_Methods(unittest.TestCase):
         self.assertTrue(valid_guesses[0] == 'aback')
 
 
+    def test_prob_of_character(self):
+        Cur_Valid_Answers = ['aaaaa', 'aaaab', 'aaaab']
+        val = World_Player.probability_of_character_in_pos(Cur_Valid_Answers, 'a', 0)
+        self.assertTrue(1 == val)
+
+    def test_prob_of_character_end(self):
+        Cur_Valid_Answers = ['aaaaa', 'aaaab', 'aaaab']
+        val = World_Player.probability_of_character_in_pos(Cur_Valid_Answers, 'a', 4)
+        self.assertTrue((1/3) == val)
+
+    def test_prob_of_character_table(self):
+        Cur_Valid_Answers = ['aaaaa', 'aaaab', 'aaaab']
+        probs = World_Player.probability_of_all_char_in_pos(Cur_Valid_Answers, 0)
+        self.assertTrue(1 == probs[0])
+
+    def test_prob_of_character_table_end(self):
+        Cur_Valid_Answers = ['aaaaa', 'aaaab', 'aaaab']
+        probs = World_Player.probability_of_all_char_in_pos(Cur_Valid_Answers, 4)
+        self.assertTrue((1/3) == probs[0])
+        self.assertTrue((2/3) == probs[1])
+
+
+
     def test_greedy_naive_guesser_aaaab(self):
         Cur_Valid_Answers = ['aaaaa', 'aaaab', 'aaaab']
         Cur_Valid_Guesses = ['aaaaa', 'aaaab', 'aaaab']
@@ -92,14 +115,14 @@ class Test_Player_Methods(unittest.TestCase):
         self.assertTrue(naive == 'abaac')
 
 
-    def test_greedy_naive_guesser_optimal_not_guessable(self):
-        Cur_Valid_Answers = ['bbaac', 'baaac', 'bbaaa']
-        Cur_Valid_Guesses = ['bbaac', 'baaac', 'bbaaa']
+    def test_greedy_naive_guesser_optimal_not_guessable_end_modify(self):
+        Cur_Valid_Answers = ['bbbac', 'bbabc', 'bbaaa']
+        Cur_Valid_Guesses = ['bbbac', 'bbabc', 'bbaaa']
 
         naive = World_Player.greedy_naive_guesser(Cur_Valid_Answers, Cur_Valid_Guesses )
 
         #first guess should be bbaac then it should find
-        self.assertTrue(naive == 'abaac')
+        self.assertTrue(naive == 'bbbac')
 
 if __name__ == '__main__':
     unittest.main()
