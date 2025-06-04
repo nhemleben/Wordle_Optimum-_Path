@@ -210,5 +210,5 @@ if __name__ == '__main__':
     #Manual_Game()
     Guesser_boy = Wordle_Player.greedy_naive_guesser_mid_probability
     #Agent_Main_Game(Guesser_boy)
-    #Observed_Agent_Main_Game(Guesser_boy)
-    Agent_All_Games(Guesser_boy)
+    Observed_Agent_Main_Game(Guesser_boy)
+    #Agent_All_Games(Guesser_boy)
