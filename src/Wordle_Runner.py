@@ -62,10 +62,11 @@ def Manual_Game():
 
 def Observed_Agent_Main_Game(Guesser):
     answer = Wordle_Engine.generate_random_answer()
-    answer = "antic"#5
-    #answer = "joker" #10
+#    answer = "antic"#3
+#    answer = "joker" #4
 #    answer = "delta" #7
     #answer = "yield" #10
+#    answer = "vinyl" #2
 
     if cheater_mode:
         print(answer)
@@ -82,6 +83,7 @@ def Observed_Agent_Main_Game(Guesser):
 
         currect_indexes, non_matching_contained_indexes, not_matched_indexes = Wordle_Engine.generic_wordle_round(answer, guess)
 
+        not_matched_letters = [guess[index] for index in not_matched_indexes]
         #remove most recent guess from possible answers and guesses to prevent duplicates
         if guess in Cur_Valid_Answers:
             Cur_Valid_Answers.remove(guess)
@@ -102,8 +104,8 @@ def Observed_Agent_Main_Game(Guesser):
 
         print("Currently on guess number: " + str(number_of_guesses))
         
-        Cur_Valid_Answers = Wordle_Player.all_valid_guesses(Cur_Valid_Answers, matching_characters, currect_indexes, non_matching_contained_chars, non_matching_contained_indexes, not_matched_indexes)
-        Cur_Valid_Guesses = Wordle_Player.all_valid_guesses(Cur_Valid_Guesses, matching_characters, currect_indexes, non_matching_contained_chars, non_matching_contained_indexes, not_matched_indexes)
+        Cur_Valid_Answers = Wordle_Player.all_valid_guesses(Cur_Valid_Answers, matching_characters, currect_indexes, non_matching_contained_chars, non_matching_contained_indexes, not_matched_letters)
+        Cur_Valid_Guesses = Wordle_Player.all_valid_guesses(Cur_Valid_Guesses, matching_characters, currect_indexes, non_matching_contained_chars, non_matching_contained_indexes, not_matched_letters)
 
         guess = Guesser(Cur_Valid_Answers, Cur_Valid_Guesses)
         print("guess: ", guess)
@@ -146,9 +148,10 @@ def Agent_Main_Game(Guesser):
 
             matching_characters = [guess[index] for index in currect_indexes] 
             non_matching_contained_chars = [guess[index] for index in non_matching_contained_indexes] 
+            not_matched_letters = [guess[index] for index in not_matched_indexes]
 
-            Cur_Valid_Answers = Wordle_Player.all_valid_guesses(Cur_Valid_Answers, matching_characters, currect_indexes, non_matching_contained_chars, non_matching_contained_indexes, not_matched_indexes)
-            Cur_Valid_Guesses = Wordle_Player.all_valid_guesses(Cur_Valid_Guesses, matching_characters, currect_indexes, non_matching_contained_chars, non_matching_contained_indexes, not_matched_indexes)
+            Cur_Valid_Answers = Wordle_Player.all_valid_guesses(Cur_Valid_Answers, matching_characters, currect_indexes, non_matching_contained_chars, non_matching_contained_indexes, not_matched_letters)
+            Cur_Valid_Guesses = Wordle_Player.all_valid_guesses(Cur_Valid_Guesses, matching_characters, currect_indexes, non_matching_contained_chars, non_matching_contained_indexes, not_matched_letters)
 
             guess = Guesser(Cur_Valid_Answers, Cur_Valid_Guesses)
             number_of_guesses += 1
@@ -158,10 +161,54 @@ def Agent_Main_Game(Guesser):
 
 
 
+#For simulating agent repeatedly, no prints to avoid cloging terminal
+def Agent_All_Games(Guesser):
+    Answer_log = []
+    Num_guess_log = []
+#    Guess_log = []
+
+    for answer in Wordle_Player.All_Possible_Answers:
+        Answer_log.append(answer)
+
+        if len(Answer_log) %10 ==0:
+            print(len(Answer_log))
+
+        Cur_Valid_Answers = [word for word in Wordle_Player.All_Possible_Answers]
+        Cur_Valid_Guesses = [word for word in Wordle_Player.All_Possible_Guesses]
+        guess = Guesser(Cur_Valid_Answers, Cur_Valid_Guesses)
+
+        number_of_guesses = 1
+
+        while number_of_guesses <= max_number_guesses:
+
+            currect_indexes, non_matching_contained_indexes, not_matched_indexes = Wordle_Engine.generic_wordle_round(answer, guess)
+
+            if len(currect_indexes) == 5:
+                break
+
+            #remove most recent guess from possible answers and guesses to prevent duplicates
+            if guess in Cur_Valid_Answers:
+                Cur_Valid_Answers.remove(guess)
+            Cur_Valid_Guesses.remove(guess)
+
+            matching_characters = [guess[index] for index in currect_indexes] 
+            non_matching_contained_chars = [guess[index] for index in non_matching_contained_indexes] 
+            not_matched_letters = [guess[index] for index in not_matched_indexes]
+
+            Cur_Valid_Answers = Wordle_Player.all_valid_guesses(Cur_Valid_Answers, matching_characters, currect_indexes, non_matching_contained_chars, non_matching_contained_indexes, not_matched_letters)
+            Cur_Valid_Guesses = Wordle_Player.all_valid_guesses(Cur_Valid_Guesses, matching_characters, currect_indexes, non_matching_contained_chars, non_matching_contained_indexes, not_matched_letters)
+
+            guess = Guesser(Cur_Valid_Answers, Cur_Valid_Guesses)
+            number_of_guesses += 1
+
+        Num_guess_log.append(number_of_guesses)
+    print(sum(Num_guess_log))
+
 
 
 if __name__ == '__main__':
     #Manual_Game()
     Guesser_boy = Wordle_Player.greedy_naive_guesser_mid_probability
-    Agent_Main_Game(Guesser_boy)
+    #Agent_Main_Game(Guesser_boy)
     #Observed_Agent_Main_Game(Guesser_boy)
+    Agent_All_Games(Guesser_boy)
