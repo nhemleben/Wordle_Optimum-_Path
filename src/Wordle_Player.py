@@ -10,10 +10,10 @@ All_Possible_Answers = Wordle_Engine.allowed_answers
 All_Possible_Guesses = Wordle_Engine.allowed_guesses + Wordle_Engine.allowed_answers
 
 #Return all valid guess given the hints 
-def all_valid_guesses(Cur_Valid_Guesses, matching_characters, matching_indexes, non_matching_contained, non_matched_letters):
+def all_valid_guesses(Cur_Valid_Guesses, matching_characters, matching_indexes, non_matching_contained,non_matching_contained_indexes, non_matched_letters):
     removed_non_matching_letters = removed_letters_no_match(Cur_Valid_Guesses, non_matched_letters)
     matching_char_guesses = all_valid_guesses_matching_characters(removed_non_matching_letters, matching_characters, matching_indexes)
-    non_matching_char_guesses = all_valid_guesses_non_matching_characters(matching_char_guesses, non_matching_contained)
+    non_matching_char_guesses = all_valid_guesses_non_matching_characters(matching_char_guesses, non_matching_contained, non_matching_contained_indexes)
     return non_matching_char_guesses
 
 def removed_letters_no_match(Curr_valid_guesses, non_matched_letters):
@@ -54,7 +54,7 @@ def all_valid_guesses_matching_characters(Curr_valid_guesses, matching_character
 
 
 #Return all valid guess given the non matching contained characters
-def all_valid_guesses_non_matching_characters(Curr_valid_guesses, non_matching_contained):
+def all_valid_guesses_non_matching_characters(Curr_valid_guesses, non_matching_contained, forbiden_indexes):
     Remaining_Guesses = []
 
     for possible_guess in Curr_valid_guesses:
@@ -62,7 +62,8 @@ def all_valid_guesses_non_matching_characters(Curr_valid_guesses, non_matching_c
 
         index = 0
         while index < len(non_matching_contained):
-            if non_matching_contained[index] in possible_guess_list:
+            #Need to have the letter and not have the letter in a spot that we already guessed
+            if non_matching_contained[index] in possible_guess_list and possible_guess_list.index(non_matching_contained[index]) != forbiden_indexes[index]:
                 index+= 1
             else:
                 break
@@ -195,12 +196,8 @@ def greedy_naive_guesser_mid_probability(Curr_valid_answers, Curr_valid_guesses)
 
         #Get new max probability character
         char_index = minor_index_to_char_prob[index_to_modify].index( min( minor_index_to_char_prob[index_to_modify]))
-
-        #Add to word
-        naive_word[index_to_modify] = alphabet_list[char_index]
-
-        #If messing with later letter skip back 
-        if index_to_modify > 0:
+        naive_word[index_to_modify] = alphabet_list[char_index] #Add to word
+        if index_to_modify > 0: #If messing with later letter skip back 
             index_to_modify = 0
 
     return ''.join(naive_word)
