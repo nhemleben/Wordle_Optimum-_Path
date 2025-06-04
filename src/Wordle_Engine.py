@@ -66,10 +66,12 @@ def non_matching_contained_in_answer_indexes(answer, guess):
 
     answer_as_list = list(answer)
     contained_in_answer_indexes = []
+    contained_in_answer_characters = []
     for index in range(len(answer)):
         #Check if guess is in the answer, and that it is not a matching index (or was a matching index earlier)
-        if guess[index] in answer_as_list and index not in matching_indexes and guess[index] not in matching_chars:
+        if guess[index] in answer_as_list and index not in matching_indexes and guess[index] not in matching_chars and guess[index] not in contained_in_answer_characters:
             contained_in_answer_indexes.append(index)
+            contained_in_answer_characters.append(guess[index])
     return contained_in_answer_indexes 
 
 #Now to check characters that are in the guess and the answer but locations do not match
