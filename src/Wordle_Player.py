@@ -91,7 +91,7 @@ def probability_of_all_char_in_pos(Curr_valid_answers , position_int):
 
 #Goes for highest probability of each letter in the guess word, if the highest probiablity is not in allowable guesses
 #modify the left most letter possible untill on guess list [shouldn't be any different than right most and easier to index]
-#The word is constructed based on proabilites from the Answer list, and then used only if it is in the Guesses list
+#The word is constructed based on proabilites from the Answer list, and then used only if it is in the Guesses list which contains all answers
 def greedy_naive_guesser(Curr_valid_answers, Curr_valid_guesses):
     word_length = len(Curr_valid_answers[0])
     master_index_to_char_probabilty = []
@@ -113,7 +113,6 @@ def greedy_naive_guesser(Curr_valid_answers, Curr_valid_guesses):
     index_to_modify = 0 
     #If word not a valid guess then go letter by letter till good
     while (''.join(naive_word)) not in Curr_valid_guesses:
-    
         #set the probability of current character to 0 and refind max, if need to go up an index
         #reset using master index list 
         minor_index_to_char_prob[index_to_modify][ alphabet_list.index(naive_word[index_to_modify])] = 0
@@ -121,12 +120,9 @@ def greedy_naive_guesser(Curr_valid_answers, Curr_valid_guesses):
         while sum(minor_index_to_char_prob[ index_to_modify]) == 0 :
             #reset letters probability 
             minor_index_to_char_prob[index_to_modify] = [probs for probs in master_index_to_char_probabilty[index_to_modify]]
-
             #reset letter in guess to to initial (maximal probability guess) aswell
             naive_word[index_to_modify] = master_naive_word_chars[index_to_modify]
-
             index_to_modify +=1
-
             #current letter is still broken as I haven't changed anything yet
             minor_index_to_char_prob[index_to_modify][ alphabet_list.index(naive_word[index_to_modify])] = 0
 
@@ -138,7 +134,7 @@ def greedy_naive_guesser(Curr_valid_answers, Curr_valid_guesses):
 
         #If messing with later letter skip back 
         if index_to_modify > 0:
-            index_to_modify =0
+            index_to_modify = 0
 
     return ''.join(naive_word)
 

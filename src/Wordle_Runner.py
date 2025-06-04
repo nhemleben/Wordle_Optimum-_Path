@@ -11,8 +11,10 @@ length_of_answer = 5
 max_number_guesses = 100
 cheater_mode = True
 
+num_games = 100
 
-num_games = 1000
+
+
 def get_valid_guess():
     guess = input("Guess for Wordle: ")
 
