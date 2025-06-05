@@ -175,7 +175,10 @@ def Agent_All_Games(Guesser):
 
         Cur_Valid_Answers = [word for word in Wordle_Player.All_Possible_Answers]
         Cur_Valid_Guesses = [word for word in Wordle_Player.All_Possible_Guesses]
-        guess = Guesser(Cur_Valid_Answers, Cur_Valid_Guesses)
+        #guess = Guesser(Cur_Valid_Answers, Cur_Valid_Guesses)
+
+#Hard coded best start word to see performacne change
+        guess = 'salet'
 
         number_of_guesses = 1
 
@@ -210,5 +213,5 @@ if __name__ == '__main__':
     #Manual_Game()
     Guesser_boy = Wordle_Player.greedy_naive_guesser_mid_probability
     #Agent_Main_Game(Guesser_boy)
-    Observed_Agent_Main_Game(Guesser_boy)
-    #Agent_All_Games(Guesser_boy)
+    #Observed_Agent_Main_Game(Guesser_boy)
+    Agent_All_Games(Guesser_boy)

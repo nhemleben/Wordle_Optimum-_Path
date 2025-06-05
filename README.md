@@ -1,5 +1,6 @@
 
-
+Current stand alone performance is 4.5 guesses on average per answer. Max of 10. 
+Given the optimal start of "salet" gives a performance of 3.9 on average, true optimumal is 3.5 [hardcore mode].
 
 
 Stolen raw data on allowed guesses and answers taken from here:
